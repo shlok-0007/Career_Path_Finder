@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Path Finder - CV Analysis Tool</title>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --text-dark: #111827;
+      --text-light: #6b7280;
+      --text-muted: #9ca3af;
+      --bg-light: #f9fafb;
+      --border-color: #d1d5db;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      line-height: 1.5;
+      color: var(--text-dark);
+      background-color: white;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header Styles */
+    header {
+      background-color: white;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+    
+    .nav-links a {
+      color: var(--text-dark);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    
+    /* Hero Section */
+    .hero {
+      padding: 100px 0;
+      text-align: center;
+      background: linear-gradient(to bottom, #f0f4ff, var(--bg-light));
+    }
+    
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      font-size: 20px;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      font-weight: 600;
+      font-size: 18px;
+      padding: 16px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.2s;
+    }
+    
+    .cta-button:hover {
+      background-color: var(--primary-dark);
+    }
+    
+    /* Features Section */
+    .features {
+      padding: 100px 0;
+      background-color: white;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .section-title h2 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    
+    .section-title p {
+      font-size: 18px;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 40px;
+    }
+    
+    .feature-card {
+      background-color: var(--bg-light);
+      border-radius: 8px;
+      padding: 32px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    
+    .feature-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    
+    .feature-card p {
+      font-size: 16px;
+      color: var(--text-light);
+    }
+    
+    /* Upload Section */
+    .upload-section {
+      padding: 80px 0;
+      background-color: var(--bg-light);
+    }
+    
+    .upload-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .file-drop-area {
+      border: 2px dashed var(--border-color);
+      border-radius: 8px;
+      padding: 40px;
+      text-align: center;
+      margin-bottom: 24px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    
+    .file-drop-area:hover {
+      border-color: var(--primary);
+    }
+    
+    .file-drop-area svg {
+      color: var(--text-light);
+      margin-bottom: 16px;
+    }
+    
+    .file-drop-area p {
+      font-size: 18px;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    
+    .small-text {
+      font-size: 14px !important;
+      color: var(--text-muted) !important;
+    }
+    
+    .file-input {
+      display: none;
+    }
+    
+    .btn {
+      display: block;
+      width: 100%;
+      background-color: var(--primary);
+      color: white;
+      font-weight: 600;
+      font-size: 18px;
+      padding: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .btn:hover {
+      background-color: var(--primary-dark);
+    }
+    
+    .loading {
+      text-align: center;
+      margin-top: 40px;
+      display: none;
+    }
+    
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-left-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+    
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    
+    /* Results Section */
+    .results-section {
+      padding: 80px 0;
+      background-color: white;
+      display: none;
+    }
+    
+    .results-container {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 40px;
+    }
+    
+    .skills-card, .jobs-card {
+      background-color: var(--bg-light);
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      padding: 32px;
+    }
+    
+    .card-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    
+    .card-icon {
+      background-color: var(--primary);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 16px;
+    }
+    
+    .card-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .card-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .skill-badge {
+      background-color: #e0e7ff;
+      color: var(--primary);
+      padding: 8px 12px;
+      border-radius: 16px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 24px;
+    }
+    
+    .job-card {
+      background-color: white;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .job-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .job-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .match-rate {
+      font-size: 14px;
+      color: #059669;
+      margin-bottom: 16px;
+    }
+    
+    .skills-needed h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .skills-needed-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    
+    .skill-needed {
+      background-color: #f3f4f6;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      color: var(--text-light);
+    }
+    
+    .missing-skill {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+    
+    .courses h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .course-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+    
+    .course-item svg {
+      margin-right: 6px;
+    }
+    
+    /* Job Listings Section */
+    .job-listings-section {
+      padding: 60px 0;
+      background-color: #f9fafb;
+      margin-top: 40px;
+      display: none;
+    }
+
+    .job-listings-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .job-listing-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      padding: 24px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .job-listing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .job-listing-header {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .job-listing-logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 6px;
+      object-fit: contain;
+      background-color: #f3f4f6;
+      margin-right: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .job-listing-logo img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .job-listing-company {
+      flex-grow: 1;
+    }
+
+    .job-listing-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+
+    .job-listing-company-name {
+      font-size: 14px;
+      color: #4b5563;
+      margin-bottom: 4px;
+    }
+
+    .job-listing-location {
+      font-size: 14px;
+      color: #6b7280;
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .job-listing-location svg {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+    }
+
+    .job-listing-description {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #4b5563;
+      margin-bottom: 16px;
+      flex-grow: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .job-listing-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .job-listing-detail {
+      font-size: 12px;
+      padding: 4px 10px;
+      background-color: #f3f4f6;
+      color: #4b5563;
+      border-radius: 16px;
+    }
+
+    .job-listing-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+
+    .job-listing-date {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .job-listing-apply {
+      font-size: 14px;
+      font-weight: 500;
+      color: #6366f1;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .job-listing-apply:hover {
+      color: #4f46e5;
+    }
+
+    .job-listing-apply svg {
+      width: 16px;
+      height: 16px;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+
+    .location-search {
+      margin-top: 20px;
+      display: flex;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .location-search input {
+      flex-grow: 1;
+      padding: 12px 16px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px 0 0 6px;
+      font-size: 16px;
+    }
+
+    .location-search button {
+      padding: 12px 20px;
+      background-color: #6366f1;
+      color: white;
+      border: none;
+      border-radius: 0 6px 6px 0;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .location-search button:hover {
+      background-color: #4f46e5;
+    }
+    
+    .empty-job-listings {
+      text-align: center;
+      padding: 40px;
+      color: #6b7280;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--text-dark);
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+    }
+    
+    @media (max-width: 768px) {
+      .results-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero h1 {
+        font-size: 36px;
+      }
+      
+      .hero p {
+        font-size: 18px;
+      }
+      
+      .nav-links {
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <div class="logo">Career Path Finder</div>
+        <div class="nav-links">
+          <a href="#home">Home</a>
+          <a href="#features">Features</a>
+          <a href="#upload">Upload CV</a>
+          <a href="about.html">About</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <h1>Discover Your Ideal Career Path</h1>
+      <p>Upload your CV and get personalized job recommendations based on your skills. Learn what additional skills you need to land your dream job.</p>
+      <a href="#upload" class="cta-button">Analyze My CV</a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>How It Works</h2>
+        <p>Our Software analyzes your CV to match your skills with in-demand job roles</p>
+      </div>
+      
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">1</div>
+          <h3>Upload Your CV</h3>
+          <p>Upload your CV in PDF, DOCX, or TXT format. Our system will extract and analyze your skills.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">2</div>
+          <h3>Skill Analysis</h3>
+          <p>Our Software identifies your skills and compares them with our extensive database of job requirements.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">3</div>
+          <h3>Job Recommendations</h3>
+          <p>Receive personalized job role recommendations that match your current skillset.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">4</div>
+          <h3>Skill Gaps</h3>
+          <p>Discover what additional skills you need to acquire to improve your chances for specific job roles.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">5</div>
+          <h3>Learning Resources</h3>
+          <p>Get recommendations for courses and resources to help you develop the skills you need.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">6</div>
+          <h3>Live Job Listings</h3>
+          <p>Browse real job opportunities that match your skills and experience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upload Section -->
+  <section class="upload-section" id="upload">
+    <div class="container">
+      <div class="section-title">
+        <h2>Upload Your CV</h2>
+        <p>Our Software will analyze your skills and suggest suitable job roles</p>
+      </div>
+      
+      <div class="upload-container">
+        <div class="file-drop-area" id="dropArea">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <p>Drag & drop your CV here or <span style="color: var(--primary);">browse files</span></p>
+          <p class="small-text">Supported formats: PDF, DOCX, TXT</p>
+        </div>
+        <input type="file" id="fileInput" class="file-input" accept=".pdf,.docx,.txt">
+        <button class="btn" id="analyzeBtn">Analyze CV</button>
+      </div>
+      
+      <div class="loading" id="loadingIndicator">
+        <div class="spinner"></div>
+        <p>Analyzing your CV... This may take a moment.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results Section -->
+  <section class="results-section" id="results">
+    <div class="container">
+      <div class="section-title">
+        <h2>Analysis Results</h2>
+        <p>Based on your CV, here are our recommendations</p>
+      </div>
+      
+      <div class="results-container">
+        <!-- Skills Card -->
+        <div class="skills-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <h3 class="card-title">Your Identified Skills</h3>
+          </div>
+          <div class="skills-list" id="identifiedSkills">
+            <!-- Identified skills will be populated dynamically -->
+          </div>
+        </div>
+        
+        <!-- Jobs Card -->
+        <div class="jobs-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              </svg>
+            </div>
+            <h3 class="card-title">Recommended Job Roles</h3>
+          </div>
+          <div class="jobs-grid" id="recommendedJobs">
+            <!-- Job recommendations will be populated dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Job Listings Section -->
+  <section class="job-listings-section" id="jobListings">
+    <div class="container">
+      <div class="section-title">
+        <h2>Real Job Opportunities</h2>
+        <p>Explore actual job listings that match your skills</p>
+      </div>
+      
+      <div class="location-search">
+        <input type="text" id="locationInput" placeholder="Enter your location (e.g., London, Remote)">
+        <button id="searchJobsBtn">Search Jobs</button>
+      </div>
+      
+      <div class="job-listings-container" id="jobListingsContainer">
+        <!-- Job listings will be populated dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Career Path Finder. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const dropArea = document.getElementById('dropArea');
+      const fileInput = document.getElementById('fileInput');
+      const analyzeBtn = document.getElementById('analyzeBtn');
+      const loadingIndicator = document.getElementById('loadingIndicator');
+      const resultsSection = document.getElementById('results');
+      const jobListingsSection = document.getElementById('jobListings');
+      const jobListingsContainer = document.getElementById('jobListingsContainer');
+      const locationInput = document.getElementById('locationInput');
+      const searchJobsBtn = document.getElementById('searchJobsBtn');
+      
+      // Store extracted skills globally
+      let extractedSkills = [];
+
+      // Handle file drop
+      dropArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropArea.style.borderColor = '#6366f1';
+      });
+
+      dropArea.addEventListener('dragleave', () => {
+        dropArea.style.borderColor = '#d1d5db';
+      });
+
+      dropArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropArea.style.borderColor = '#d1d5db';
+        if (e.dataTransfer.files.length) {
+          fileInput.files = e.dataTransfer.files;
+          dropArea.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+            </svg>
+            <p>File selected: ${e.dataTransfer.files[0].name}</p>
+          `;
+        }
+      });
+
+      // Click on drop area to select file
+      dropArea.addEventListener('click', () => {
+        fileInput.click();
+      });
+
+      // When file is selected
+      fileInput.addEventListener('change', () => {
+        if (fileInput.files.length) {
+          dropArea.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+            </svg>
+            <p>File selected: ${fileInput.files[0].name}</p>
+          `;
+        }
+      });
+
+      // Course platform icons
+      const platformIcons = {
+        'Coursera': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zm-.5 4.5c-4.14 0-7.5 3.36-7.5 7.5 0 .969.206 1.91.594 2.771l.984-.492c-.325-.73-.498-1.5-.498-2.279 0-3.14 2.544-5.684 5.684-5.684.557 0 1.115.082 1.64.244l.293-1.131a7.597 7.597 0 00-2.198-.355zm3.256.92l-.984.492c.325.73.498 1.5.498 2.279 0 3.14-2.544 5.684-5.684 5.684-.557 0-1.115-.082-1.64-.244l-.293 1.131a7.597 7.597 0 002.198.354c4.14 0 7.5-3.36 7.5-7.5 0-.975-.208-1.917-.595-2.771z"/></svg>',
+        'Udemy': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 0L5.81 3.573v3.574l6.189-3.574 6.191 3.574V3.573zM5.81 10.148v8.144c0 1.85 2.77 3.708 6.19 3.708s6.19-1.858 6.19-3.708v-8.144l-6.19 3.572z"/></svg>',
+        'edX': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M10.5 17.55L8.45 20.5H2.5l6.505-9.24-6.505-9.26H8.45l6.5 9.26-4.45 6.29zm3 0l2.05 2.95H21.5l-6.505-9.24 6.505-9.26H15.55l-6.5 9.26 4.45 6.29z"/></svg>',
+        'LinkedIn Learning': '<svg xmlns="http://www.w3.org/2000

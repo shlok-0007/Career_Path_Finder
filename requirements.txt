@@ -1,0 +1,32 @@
+# Core Dependencies
+Flask==2.3.3
+flask-cors==4.0.0
+python-dotenv==1.0.0
+
+# File Processing
+pdfminer.six==20221105
+python-docx==0.8.11
+
+# Natural Language Processing
+nltk==3.8.1
+
+# HTTP Requests
+requests==2.31.0
+
+# Development
+pytest==7.4.0
+pytest-cov==4.1.0
+
+# Code Quality
+black==23.7.0
+flake8==6.1.0
+
+# Note: The following packages are required but will be installed as dependencies of the above packages:
+# - setuptools
+# - joblib
+# - tqdm
+# - regex
+# - click
+
+# To install NLTK data, run the following after installing the requirements:
+# python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords')"
