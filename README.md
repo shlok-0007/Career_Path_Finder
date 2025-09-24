@@ -171,13 +171,7 @@ A huge shoutout to these amazing projects that make our work possible:
 - [pdfminer.six](https://github.com/pdfminer/pdfminer.six) - For taming those pesky PDFs
 - [python-docx](https://python-docx.readthedocs.io/) - Making Word docs less scary
 
-## 👥 Meet the Dream Team
 
-| [<img src="templates/shlok.jpg" width="100px;" alt="Shlok"/><br /><sub><b>Shlok</b></sub>](https://github.com/shlok) | [<img src="templates/arjun.jpg" width="100px;" alt="Arjun"/><br /><sub><b>Arjun</b></sub>](https://github.com/arjun) | [<img src="templates/mohit.jpg" width="100px;" alt="Mohit"/><br /><sub><b>Mohit</b></sub>](https://github.com/mohit) |
-| :---: | :---: | :---: |
-| Code Wizard | Design Guru | AI Master |
-
----
 
 <div align="center">
   <h3>🚀 Made with ❤️ and a lot of ☕ by Team Career Path Finder</h3>
